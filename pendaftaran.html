@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Pendaftaran</title>
+<style>
+  :root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #cbd5e1;
+    --error: #dc2626;
+    --success: #16a34a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #e0e7ff, var(--bg));
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--text);
+  }
+  .card {
+    background: var(--card);
+    width: 100%;
+    max-width: 440px;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .1);
+  }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+  .field { margin-bottom: 16px; }
+  label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
+  input, select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: .95rem;
+    font-family: inherit;
+    transition: border-color .2s, box-shadow .2s;
+    background: #fff;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, .15);
+  }
+  .field.invalid input, .field.invalid select { border-color: var(--error); }
+  .error { color: var(--error); font-size: .78rem; margin-top: 4px; display: none; }
+  .field.invalid .error { display: block; }
+  .radio-group { display: flex; gap: 20px; }
+  .radio-group label { font-weight: 400; display: flex; align-items: center; gap: 6px; margin: 0; cursor: pointer; }
+  .radio-group input { width: auto; }
+  .check { display: flex; gap: 8px; align-items: flex-start; font-size: .85rem; }
+  .check input { width: auto; margin-top: 3px; }
+  .check label { font-weight: 400; margin: 0; }
+  button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background .2s, transform .1s;
+  }
+  button:hover { background: var(--primary-dark); }
+  button:active { transform: scale(.98); }
+  .success { text-align: center; display: none; }
+  .success .icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--success); color: #fff;
+    font-size: 2rem; line-height: 64px; margin: 0 auto 16px;
+  }
+  .success p { color: var(--muted); margin: 8px 0 20px; }
+  .summary {
+    text-align: left; background: var(--bg);
+    border-radius: 8px; padding: 14px 16px;
+    font-size: .88rem; line-height: 1.8; margin-bottom: 16px;
+  }
+  .secondary { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+  .secondary:hover { background: #eef2ff; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <form id="form" novalidate>
+    <h1>Form Pendaftaran</h1>
+    <p class="sub">Isi data diri Anda dengan benar.</p>
+
+    <div class="field">
+      <label for="nama">Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Contoh: Budi Santoso">
+      <div class="error">Nama minimal 3 karakter.</div>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="nama@email.com">
+      <div class="error">Masukkan email yang valid.</div>
+    </div>
+
+    <div class="field">
+      <label for="hp">No. HP</label>
+      <input type="tel" id="hp" placeholder="08xxxxxxxxxx">
+      <div class="error">No. HP harus 10–13 digit angka.</div>
+    </div>
+
+    <div class="field" id="gender-field">
+      <label>Jenis Kelamin</label>
+      <div class="radio-group">
+        <label><input type="radio" name="gender" value="Laki-laki"> Laki-laki</label>
+        <label><input type="radio" name="gender" value="Perempuan"> Perempuan</label>
+      </div>
+      <div class="error">Pilih jenis kelamin.</div>
+    </div>
+
+    <div class="field">
+      <label for="program">Pilihan Program</label>
+      <select id="program">
+        <option value="">-- Pilih program --</option>
+        <option>Web Development</option>
+        <option>Mobile Development</option>
+        <option>UI/UX Design</option>
+        <option>Data Science</option>
+      </select>
+      <div class="error">Pilih salah satu program.</div>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Minimal 6 karakter">
+      <div class="error">Password minimal 6 karakter.</div>
+    </div>
+
+    <div class="field" id="setuju-field">
+      <div class="check">
+        <input type="checkbox" id="setuju">
+        <label for="setuju">Saya menyatakan data di atas benar.</label>
+      </div>
+      <div class="error">Anda harus menyetujui pernyataan ini.</div>
+    </div>
+
+    <button type="submit">Daftar Sekarang</button>
+  </form>
+
+  <div class="success" id="success">
+    <div class="icon">✓</div>
+    <h1>Pendaftaran Berhasil!</h1>
+    <p>Terima kasih, data Anda sudah kami terima.</p>
+    <div class="summary" id="summary"></div>
+    <button class="secondary" id="reset">Daftar Lagi</button>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('form');
+  const successBox = document.getElementById('success');
+  const summary = document.getElementById('summary');
+
+  const $ = id => document.getElementById(id);
+
+  function setInvalid(el, isInvalid) {
+    el.closest('.field').classList.toggle('invalid', isInvalid);
+    return !isInvalid;
+  }
+
+  function validate() {
+    const checks = [
+      setInvalid($('nama'), $('nama').value.trim().length < 3),
+      setInvalid($('email'), !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())),
+      setInvalid($('hp'), !/^\d{10,13}$/.test($('hp').value.trim())),
+      setInvalid($('gender-field').firstElementChild, !document.querySelector('input[name="gender"]:checked')),
+      setInvalid($('program'), !$('program').value),
+      setInvalid($('password'), $('password').value.length < 6),
+      setInvalid($('setuju'), !$('setuju').checked)
+    ];
+    return checks.every(Boolean);
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const data = {
+      nama: $('nama').value.trim(),
+      email: $('email').value.trim(),
+      hp: $('hp').value.trim(),
+      gender: document.querySelector('input[name="gender"]:checked').value,
+      program: $('program').value,
+      waktu: new Date().toISOString()
+    };
+
+    // Simpan ke localStorage (simulasi database)
+    try {
+      const list = JSON.parse(localStorage.getItem('pendaftar') || '[]');
+      list.push(data);
+      localStorage.setItem('pendaftar', JSON.stringify(list));
+    } catch (err) {}
+
+    summary.innerHTML =
+      `<b>Nama:</b> ${esc(data.nama)}<br>` +
+      `<b>Email:</b> ${esc(data.email)}<br>` +
+      `<b>No. HP:</b> ${esc(data.hp)}<br>` +
+      `<b>Gender:</b> ${esc(data.gender)}<br>` +
+      `<b>Program:</b> ${esc(data.program)}`;
+
+    form.style.display = 'none';
+    successBox.style.display = 'block';
+  });
+
+  // Hapus pesan error saat user mulai memperbaiki isian
+  form.addEventListener('input', e => {
+    const f = e.target.closest('.field');
+    if (f) f.classList.remove('invalid');
+  });
+
+  $('reset').addEventListener('click', () => {
+    form.reset();
+    successBox.style.display = 'none';
+    form.style.display = 'block';
+  });
+
+  function esc(s) {
+    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+</script>
+</body>
+</html>
